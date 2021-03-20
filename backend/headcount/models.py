@@ -14,7 +14,7 @@ class User(models.Model):
 
 class Company(models.Model):
     company = models.CharField(max_length=200)
-    month = models.CharField(max_length=200)
+    month = models.DateField(default=None, null=True)
     headcount = models.CharField(max_length=200)
 
     def __str__(self):

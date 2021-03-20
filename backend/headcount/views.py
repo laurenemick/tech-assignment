@@ -3,8 +3,11 @@ import csv, io
 from django.shortcuts import render
 from django.contrib import messages
 from django.db.models import Count
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
 
 from .models import Company
+from .serializers import *
 
 # one parameter named request
 def company_upload(request):
@@ -43,8 +46,17 @@ def company_upload(request):
 
     return render(request, template, context)
 
-
+@api_view(['GET'])
 def load_companies(request):
     companies = Company.objects.values('company').annotate(entries=Count('company'))
+    return Response(companies)
+    # return render(request, 'company_dropdown.html', {'companies': companies})
 
-    return render(request, 'company_dropdown.html', {'companies': companies})
+# @api_view(['GET'])
+# def load_companies(request):
+#     if request.method == 'GET':
+#         data = Company.objects.all()
+
+#         serializer = CompanySerializer(data, context={'request': request}, many=True)
+
+#         return Response(serializer.data)

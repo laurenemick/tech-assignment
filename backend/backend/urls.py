@@ -19,10 +19,10 @@ from django.urls import include, path, re_path
 from headcount import views
 
 urlpatterns = [
-    # path('headcount/', include('headcount.urls')),
+    path('', include('frontend.urls')),
+    path('', include('headcount.urls')),
     path('admin/', admin.site.urls),
     path('upload-csv/', views.company_upload, name="company_upload"),
-    # re_path(r'^api/students/$', views.students_list),
-    path('companies/', views.load_companies, name='load_companies'),
+    # re_path(r'^api/companies/$', views.selected_company, name='selected_company'),
 ]
 
