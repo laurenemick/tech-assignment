@@ -1,4 +1,5 @@
 from django.db import models
+from datetime import date
 
 class User(models.Model):
     user_id = models.BigIntegerField(unique=True)
@@ -14,7 +15,7 @@ class User(models.Model):
 
 class Company(models.Model):
     company = models.CharField(max_length=200)
-    month = models.DateField(default=None, null=True)
+    month = models.CharField(max_length=200)
     headcount = models.CharField(max_length=200)
 
     def __str__(self):

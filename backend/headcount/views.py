@@ -5,6 +5,7 @@ from django.contrib import messages
 from django.db.models import Count
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from django.db.models.functions import Extract
 
 from .models import Company
 from .serializers import *
@@ -49,14 +50,13 @@ def company_upload(request):
 @api_view(['GET'])
 def load_companies(request):
     companies = Company.objects.values('company').annotate(entries=Count('company'))
+    
     return Response(companies)
-    # return render(request, 'company_dropdown.html', {'companies': companies})
 
 # @api_view(['GET'])
 # def load_companies(request):
-#     if request.method == 'GET':
-#         data = Company.objects.all()
+#     data = Company.objects.all()
 
-#         serializer = CompanySerializer(data, context={'request': request}, many=True)
+#     serializer = CompanySerializer(data, context={'request': request}, many=True)
 
-#         return Response(serializer.data)
+#     return Response(serializer.data)
